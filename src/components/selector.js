@@ -18,9 +18,9 @@ const stations = [
   ];
 
 const Selector = ({onSelChange, type}) => {
-    const [station, setStation] = useState('')
+    //const [station, setStation] = useState('')
     const handleChange = (event) => {
-        setStation(event.target.value);
+        //setStation(event.target.value);
         console.log(stations[event.target.value]);
         onSelChange(event.target.value)
     }
@@ -28,20 +28,21 @@ const Selector = ({onSelChange, type}) => {
     return(
     <Box sx={{m: 2}}>
         <FormControl fullWidth>
-        <InputLabel>Station</InputLabel>
+        <InputLabel>{type}</InputLabel>
         <Select
-          value={station}
+          variant="filled"
+          //value={station}
           label="Station"
           onChange={handleChange}
         >
-            <MenuItem value=""><em>Select {type} Station</em></MenuItem>
+            <MenuItem value=""><em>Select a station</em></MenuItem>
             {stations.map((stationName, index) => (
-                <MenuItem value={index}>
+                <MenuItem key={index} value={index}>
                     {stationName}
                 </MenuItem>
             ))}
         </Select>
-        <FormHelperText>Selected {type} station: {station}</FormHelperText>
+        <FormHelperText>Select {type} station</FormHelperText>
       </FormControl>
     </Box>
     )
