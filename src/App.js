@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container } from "@mui/material";
+import Selector from "./components/selector";
+import { useState } from "react";
 
 function App() {
+
+  const [srcStation, setSrcStation] = useState('')
+  const [destStation, setDestStation] = useState('')
+  const handleSrcChange = (stn) => {
+    setSrcStation(stn)
+    console.log("Src: " + stn);
+  }
+  const handleDestChange = (stn) => {
+    setDestStation(stn)
+    console.log("Dest: " + stn);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container sx={{bgcolor: "black", height: '100vh', p: 1} }>
+      Hello World
+      <Selector type="Source" onSelChange={handleSrcChange}/>
+      <Selector type="Destination" onSelChange={handleDestChange}/>
+    </Container>
   );
 }
 
