@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +17,7 @@ const stations = [
     'SEALDAH'
   ];
 
-const Selector = ({onSelChange, type}) => {
+const Selector = ({onSelChange, defaultStn, type}) => {
     //const [station, setStation] = useState('')
     const handleChange = (event) => {
         //setStation(event.target.value);
@@ -31,11 +31,11 @@ const Selector = ({onSelChange, type}) => {
         <InputLabel>{type}</InputLabel>
         <Select
           variant="filled"
-          //value={station}
+          //value={defaultStn}
           label="Station"
           onChange={handleChange}
         >
-            <MenuItem value=""><em>Select a station</em></MenuItem>
+            <MenuItem value='0'><em>Select a station</em></MenuItem>
             {stations.map((stationName, index) => (
                 <MenuItem key={index} value={index}>
                     {stationName}

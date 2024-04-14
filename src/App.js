@@ -1,7 +1,8 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Selector from "./components/selector";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CountdownTimer from "./components/CountDownTimer";
+import { getNextTrainTime, convertTo12HourFormat } from "./components/TrainTimes";
 
 function App() {
   const stations = [
@@ -15,8 +16,19 @@ function App() {
     'SEALDAH'
   ];
 
-  const [srcStation, setSrcStation] = useState('')
-  const [destStation, setDestStation] = useState('')
+  const [srcStation, setSrcStation] = useState(0)
+  const [destStation, setDestStation] = useState(7)
+  
+  const [nextTime, setNextTime] = useState(getNextTrainTime(stations[srcStation]))
+
+  const handleEnd = () => {
+    setNextTime(getNextTrainTime(stations[srcStation]))
+  }
+
+  useEffect(() => {
+    setNextTime(getNextTrainTime(stations[srcStation]))
+  }, [srcStation])
+
   const handleSrcChange = (stn) => {
     setSrcStation(stn)
     console.log("Src: " + stn);
@@ -27,9 +39,10 @@ function App() {
   }
   return (
     <Container sx={{bgcolor: "black", height: '100vh', p: 1}}>
-      <Selector type="Source" onSelChange={handleSrcChange}/>
-      <Selector type="Destination" onSelChange={handleDestChange}/>
-      <CountdownTimer nextTrainTime={'23:00'} />
+      <Selector type="Source" defaultStn={srcStation} onSelChange={handleSrcChange}/>
+      <Selector type="Destination" defaultStn={destStation} onSelChange={handleDestChange}/>
+      <Typography sx={{color: 'white', m: 4}}>Selected {stations[srcStation]} as source and {stations[destStation]} as destination</Typography>
+      <CountdownTimer nextTrainTime={nextTime} onEnd={handleEnd} />
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
-function CountdownTimer({ nextTrainTime }) {
+function CountdownTimer({ nextTrainTime, onEnd }) {
   const calculateTimeLeft = () => {
     var currentTime = new Date();
     
@@ -19,14 +19,16 @@ function CountdownTimer({ nextTrainTime }) {
     var hoursDifference = Math.floor(difference / (1000 * 60 * 60));
     var minutesDifference = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     var secondsDifference = Math.floor((difference % (1000 * 60)) / 1000);
-
+    var differenceString
     // Construct the difference string
     if (hoursDifference > 0)
-        var differenceString = `${hoursDifference < 10 ? `0${hoursDifference}` : hoursDifference}:${minutesDifference < 10 ? `0${minutesDifference}` : minutesDifference}:${secondsDifference < 10 ? `0${secondsDifference}` : secondsDifference}`;
+        differenceString = `${hoursDifference < 10 ? `0${hoursDifference}` : hoursDifference}:${minutesDifference < 10 ? `0${minutesDifference}` : minutesDifference}:${secondsDifference < 10 ? `0${secondsDifference}` : secondsDifference}`;
     else if (hoursDifference === 0 && (minutesDifference > 0 || secondsDifference > 0))
-        var differenceString = `${minutesDifference < 10 ? `0${minutesDifference}` : minutesDifference}:${secondsDifference < 10 ? `0${secondsDifference}` : secondsDifference}`;
-    else
-        var differenceString = '00:00'
+        differenceString = `${minutesDifference < 10 ? `0${minutesDifference}` : minutesDifference}:${secondsDifference < 10 ? `0${secondsDifference}` : secondsDifference}`;
+    else{
+        differenceString = '00:00'
+        onEnd()
+      }
     return differenceString;
   };
 
