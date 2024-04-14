@@ -17,7 +17,7 @@ function App() {
   ];
 
   const [srcStation, setSrcStation] = useState(0)
-  const [destStation, setDestStation] = useState(7)
+  const [destStation, setDestStation] = useState(6)
   
   const [nextTime, setNextTime] = useState(getNextTrainTime(stations[srcStation]))
 

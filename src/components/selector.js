@@ -31,7 +31,7 @@ const Selector = ({onSelChange, defaultStn, type}) => {
         <InputLabel>{type}</InputLabel>
         <Select
           variant="filled"
-          //value={defaultStn}
+          defaultValue={defaultStn}
           label="Station"
           onChange={handleChange}
         >
